@@ -15,9 +15,11 @@ import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
@@ -37,6 +39,7 @@ public class FrmCalculadora extends JFrame {
 	private JButton btnNumeroAc, btnNumeroIgual, btnNumeroPunto, btnNumeroAns;
 	JPanel panel;
 	JLabel lblResult;
+		
 	
 	double num, ans;
 	int calculando;
@@ -83,6 +86,8 @@ public class FrmCalculadora extends JFrame {
 		txfDato.setBounds(20, 111, 300, 29);
 		contentPane.add(txfDato);
 		txfDato.setColumns(10);
+		Object window = null;
+		
 		
 		crearBotones();
 	}//fin del metodo
@@ -135,7 +140,8 @@ public class FrmCalculadora extends JFrame {
 		btnNumero9.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumero9);
 		
-		btnNumeroDel = new JButton("DEL");
+		btnNumeroDel = new JButton("");
+		btnNumeroDel.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/editclear_104146.png")));
 		btnNumeroDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int length = txfDato.getText().length();
@@ -204,7 +210,8 @@ public class FrmCalculadora extends JFrame {
 		btnNumero6.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumero6);
 		
-		btnNumeroMulti = new JButton("*");
+		btnNumeroMulti = new JButton("");
+		btnNumeroMulti.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/multiplication_icon_135381.png")));
 		btnNumeroMulti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num = Double.parseDouble(txfDato.getText());
@@ -216,7 +223,8 @@ public class FrmCalculadora extends JFrame {
 		btnNumeroMulti.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumeroMulti);
 		
-		btnNumeroEntre = new JButton("/");
+		btnNumeroEntre = new JButton("");
+		btnNumeroEntre.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/division_icon_138673.png")));
 		btnNumeroEntre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num = Double.parseDouble(txfDato.getText());
@@ -236,11 +244,6 @@ public class FrmCalculadora extends JFrame {
 		        } else {
 		            txfDato.setText(txfDato.getText() + "1");
 		        }
-				
-				
-				//txfDato.setText(txfDato.getText() + "1");
-				
-				
 			}
 		});
 		btnNumero1.setFont(new Font("Lucida Fax", Font.BOLD, 16));
@@ -272,7 +275,8 @@ public class FrmCalculadora extends JFrame {
 		btnNumero3.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumero3);
 				
-		btnNumeroMas = new JButton("+");
+		btnNumeroMas = new JButton("");
+		btnNumeroMas.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/addition__3154.png")));
 		btnNumeroMas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num = Double.parseDouble(txfDato.getText());
@@ -285,7 +289,8 @@ public class FrmCalculadora extends JFrame {
 		btnNumeroMas.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumeroMas);
 		
-		btnNumeroMenos = new JButton("-");
+		btnNumeroMenos = new JButton("");
+		btnNumeroMenos.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/subtractsign_80955.png")));
 		btnNumeroMenos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num = Double.parseDouble(txfDato.getText());
@@ -319,25 +324,6 @@ public class FrmCalculadora extends JFrame {
 		btnNumeroPunto.setFont(new Font("Lucida Fax", Font.BOLD, 16));
 		panel.add(btnNumeroPunto);
 		
-		btnNumeroIgual = new JButton("=");
-		btnNumeroIgual.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//operacionesAritmeticas();
-				//lblResult.setText("");
-				
-				try {
-			        operacionesAritmeticas();
-			        lblResult.setText("");
-			    } catch (NumberFormatException ex) {
-			        
-			    	lblResult.setText("¡Error!");
-			    }
-				
-			}
-		});
-		btnNumeroIgual.setFont(new Font("Lucida Fax", Font.BOLD, 16));
-		panel.add(btnNumeroIgual);
-		
 		btnNumeroAns = new JButton("");
 		btnNumeroAns.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/square_root_variable_icon_198751.png")));
 		btnNumeroAns.addActionListener(new ActionListener() {
@@ -364,6 +350,26 @@ public class FrmCalculadora extends JFrame {
 		panel.add(btnNumeroNotacion);
 		btnNumeroAns.setFont(new Font("Lucida Fax", Font.BOLD, 12));
 		panel.add(btnNumeroAns);
+		
+		btnNumeroIgual = new JButton("");
+		btnNumeroIgual.setIcon(new ImageIcon(FrmCalculadora.class.getResource("/imagen/equals_icon_175217.png")));
+		btnNumeroIgual.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//operacionesAritmeticas();
+				//lblResult.setText("");
+				
+				try {
+			        operacionesAritmeticas();
+			        lblResult.setText("");
+			    } catch (NumberFormatException ex) {
+			        
+			    	lblResult.setText("¡Error!");
+			    }
+				
+			}
+		});
+		btnNumeroIgual.setFont(new Font("Lucida Fax", Font.BOLD, 16));
+		panel.add(btnNumeroIgual);
 		
 		lblResult = new JLabel("");
 		lblResult.setFont(new Font("Tahoma", Font.BOLD, 22));
@@ -414,6 +420,21 @@ public class FrmCalculadora extends JFrame {
 		
 	
 	}//fin del metodo
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
